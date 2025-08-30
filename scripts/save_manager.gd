@@ -14,10 +14,10 @@ func _ready() -> void:
 func save_game() -> void:
 	var save_file = FileAccess.open(save_location, FileAccess.WRITE)
 	
-	var json_string = JSON.stringify({"high score": high_score})
+	var json_string = JSON.stringify({"high_score": high_score})
 	save_file.store_line(json_string)
 	
-	json_string = JSON.stringify({"first time": first_time})
+	json_string = JSON.stringify({"first_time": first_time})
 	save_file.store_line(json_string)
 	
 func load_game() -> void:

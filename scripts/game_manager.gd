@@ -1,4 +1,9 @@
 extends Node
+class_name GameManager
+
+static var instance
+
+@export var stars_texture: ViewportTexture
 
 var menu_scene: PackedScene = load("res://scenes/menu.tscn")
 
@@ -10,6 +15,11 @@ var target_time_scale: float = 1.0
 var time_shift_speed: float = 50.0
 
 func _ready() -> void:
+	if instance == null:
+		instance = self
+	else:
+		queue_free()
+	
 	EventBus.gameplay.game_start.connect(_on_game_start)
 	EventBus.gameplay.game_over.connect(_on_game_over)
 	EventBus.gameplay.add_score.connect(_on_add_score)

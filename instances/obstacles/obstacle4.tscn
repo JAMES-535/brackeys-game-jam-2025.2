@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7hg7xg2odneg"]
+[gd_scene load_steps=14 format=3 uid="uid://c7hg7xg2odneg"]
 
 [ext_resource type="Script" uid="uid://bmhjs1r2fwg8l" path="res://scripts/gameplay/obstacle_control.gd" id="1_bli5t"]
 [ext_resource type="PackedScene" uid="uid://b5pfm24qtol1s" path="res://instances/wall_sprite.tscn" id="2_gikwj"]
@@ -11,18 +11,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(510, 58)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_lnu2h"]
-noise_type = 0
-frequency = 0.0041
-offset = Vector3(0, 0, 682.255)
-fractal_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lbhrr"]
-in_3d_space = true
-seamless = true
-seamless_blend_skirt = 1.0
-noise = SubResource("FastNoiseLite_lnu2h")
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_dte70"]
 viewport_path = NodePath("StarParticles/SubViewport")
 
@@ -33,7 +21,6 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(4, 0.453)
 shader_parameter/wall_tex = ExtResource("5_e4ul2")
-shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
 shader_parameter/stars = SubResource("ViewportTexture_dte70")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_puiah"]
@@ -49,7 +36,6 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(7.785, 0.453)
 shader_parameter/wall_tex = ExtResource("6_186da")
-shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
 shader_parameter/stars = SubResource("ViewportTexture_186da")
 
 [node name="Obstacle" type="AnimatableBody2D"]

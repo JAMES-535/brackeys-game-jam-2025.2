@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c17fvd7lpyi6s"]
+[gd_scene load_steps=18 format=3 uid="uid://c17fvd7lpyi6s"]
 
 [ext_resource type="Script" uid="uid://bmhjs1r2fwg8l" path="res://scripts/gameplay/obstacle_control.gd" id="1_a14tw"]
 [ext_resource type="Script" uid="uid://b6f3n8ei8b12b" path="res://scripts/gameplay/obstacle.gd" id="2_6nbxu"]
@@ -13,18 +13,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(510, 58)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_lnu2h"]
-noise_type = 0
-frequency = 0.0041
-offset = Vector3(0, 0, 846.201)
-fractal_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lbhrr"]
-in_3d_space = true
-seamless = true
-seamless_blend_skirt = 1.0
-noise = SubResource("FastNoiseLite_lnu2h")
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_h1ksv"]
 viewport_path = NodePath("StarParticles/SubViewport")
 
@@ -35,7 +23,6 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(4, 0.453)
 shader_parameter/wall_tex = ExtResource("5_xbae1")
-shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
 shader_parameter/stars = SubResource("ViewportTexture_h1ksv")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_f4r72"]
@@ -48,7 +35,6 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(4, 0.453)
 shader_parameter/wall_tex = ExtResource("5_xbae1")
-shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
 shader_parameter/stars = SubResource("ViewportTexture_f4r72")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
@@ -64,7 +50,6 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(2.94, 0.453)
 shader_parameter/wall_tex = ExtResource("6_f4r72")
-shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
 shader_parameter/stars = SubResource("ViewportTexture_4usvr")
 
 [node name="Obstacle" type="AnimatableBody2D"]

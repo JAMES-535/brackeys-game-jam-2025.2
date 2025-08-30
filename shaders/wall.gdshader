@@ -4,7 +4,6 @@ uniform float boarder_size : hint_range(0.0, 1.0, 0.01);
 uniform float warp_intensity = 1.0;
 uniform vec2 sprite_scale;
 uniform sampler2D wall_tex: filter_nearest;
-uniform sampler2D noise: repeat_enable;
 uniform sampler2D stars: repeat_enable, filter_nearest;
 
 void vertex() {
@@ -12,9 +11,7 @@ void vertex() {
 }
 
 void fragment() {
-	vec3 normal = texture(noise, UV).rgb;
 	vec2 uv = UV;
-	//uv -= normal.r * warp_intensity * normalize(vec2(0.5) - uv);
 	vec4 wall_col = texture(wall_tex, uv);
 
 	if (wall_col == vec4(0.0, 0.0, 0.0, 1.0)) {
