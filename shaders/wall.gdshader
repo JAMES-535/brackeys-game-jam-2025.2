@@ -12,7 +12,8 @@ void vertex() {
 void fragment() {
 	vec2 uv = UV * 2.0 - 1.0;
 	vec2 res = 1.0 / TEXTURE_PIXEL_SIZE;
-	uv.x *= sprite_scale.x / sprite_scale.y;
+	COLOR = vec4(1.0);
+	/* uv.x *= sprite_scale.x / sprite_scale.y;
 
 	vec3 normal = texture(noise, UV).rgb;
 	uv -= normal.r * warp_intensity * (vec2(0.0) - uv);
@@ -26,7 +27,7 @@ void fragment() {
 
 	COLOR.a = 1.0;
 	if (abs(uv.x) > sprite_scale.x || abs(uv.y) > sprite_scale.y)
-		COLOR.a = 0.0;
+		COLOR.a = 0.0; */
 }
 
 //void light() {

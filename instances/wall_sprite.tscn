@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5pfm24qtol1s"]
+
+[ext_resource type="Shader" uid="uid://bmy4wqs8lhcrk" path="res://shaders/wall.gdshader" id="1_eky40"]
+[ext_resource type="Texture2D" uid="uid://cfik6wbcbsjkj" path="res://icon.svg" id="2_mq0n2"]
+[ext_resource type="Script" uid="uid://cp02y0kvu4n8g" path="res://scripts/shaders/wall_warp_control.gd" id="3_w3y24"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lnu2h"]
+noise_type = 0
+frequency = 0.0041
+offset = Vector3(0, 0, 449.672)
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lbhrr"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_lnu2h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnu2h"]
+shader = ExtResource("1_eky40")
+shader_parameter/boarder_size = 0.9
+shader_parameter/warp_intensity = 0.2
+shader_parameter/sprite_scale = Vector2(4, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
+
+[node name="WallSprite" type="Sprite2D"]
+material = SubResource("ShaderMaterial_lnu2h")
+scale = Vector2(4, 0.453125)
+texture = ExtResource("2_mq0n2")
+script = ExtResource("3_w3y24")

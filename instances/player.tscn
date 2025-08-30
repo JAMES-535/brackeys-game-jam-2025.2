@@ -1,13 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://8mj5u2vt8k1"]
+[gd_scene load_steps=8 format=3 uid="uid://8mj5u2vt8k1"]
 
 [ext_resource type="Texture2D" uid="uid://cfik6wbcbsjkj" path="res://icon.svg" id="1_5lg5i"]
+[ext_resource type="Texture2D" uid="uid://d1nkjh5lp4036" path="res://sprites/ship.png" id="2_5a4mc"]
 [ext_resource type="Script" uid="uid://3w7iu7jsbck5" path="res://scripts/statemachine/state_machine.gd" id="2_nd4ad"]
 [ext_resource type="Script" uid="uid://bstc3obgj7jbh" path="res://scripts/player/movement_state.gd" id="3_fljvy"]
+[ext_resource type="Script" uid="uid://d1p0wivevfi71" path="res://scripts/player/death_state.gd" id="4_xkcoe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
-size = Vector2(24, 24)
+size = Vector2(16, 24)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5a4mc"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 9.715, 0)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
 
 [node name="Player" type="CharacterBody2D"]
+texture_filter = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -23,14 +37,31 @@ top_level = true
 shape = SubResource("RectangleShape2D_uwrxv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Ship"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_5lg5i")
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_5a4mc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Ship"]
+position = Vector2(-10, 0)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_5a4mc")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Ship"]
+position = Vector2(10, 0)
+process_material = SubResource("ParticleProcessMaterial_5a4mc")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("2_nd4ad")
 current_state = NodePath("Movement")
 
-[node name="Movement" type="Node" parent="StateMachine" node_paths=PackedStringArray("body", "ship")]
+[node name="Movement" type="Node" parent="StateMachine" node_paths=PackedStringArray("body", "ship", "collision")]
 script = ExtResource("3_fljvy")
 body = NodePath("../..")
 ship = NodePath("../../Ship")
+collision = NodePath("../../Ship/Area2D")
+
+[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("ship", "particles1", "particles2")]
+script = ExtResource("4_xkcoe")
+ship = NodePath("../../Ship")
+particles1 = NodePath("../../Ship/GPUParticles2D")
+particles2 = NodePath("../../Ship/GPUParticles2D2")

@@ -3,11 +3,9 @@ class_name StateMachine
 
 @export var current_state: State
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_state._state_ready()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	current_state._state_process(delta)
 

@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://desu1q3kqinqk"]
+
+[ext_resource type="Script" uid="uid://bmhjs1r2fwg8l" path="res://scripts/gameplay/obstacle_control.gd" id="1_r5had"]
+[ext_resource type="Script" uid="uid://b6f3n8ei8b12b" path="res://scripts/gameplay/obstacle.gd" id="2_00orw"]
+[ext_resource type="PackedScene" uid="uid://b5pfm24qtol1s" path="res://instances/wall_sprite.tscn" id="2_s0k0g"]
+[ext_resource type="PackedScene" uid="uid://65n45feouiqu" path="res://instances/slow_zone.tscn" id="4_00orw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(510, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
+size = Vector2(376, 58)
+
+[node name="Obstacle" type="AnimatableBody2D"]
+sync_to_physics = false
+script = ExtResource("1_r5had")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_00orw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(498, 0)
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="WallSprite" parent="Area2D/CollisionShape2D" instance=ExtResource("2_s0k0g")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-498, 0)
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="WallSprite" parent="Area2D/CollisionShape2D2" instance=ExtResource("2_s0k0g")]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(21, 0)
+shape = SubResource("RectangleShape2D_u5sy4")
+
+[node name="WallSprite" parent="Area2D/CollisionShape2D3" instance=ExtResource("2_s0k0g")]
+scale = Vector2(2.94, 0.453)
+
+[node name="SlowZone" parent="." instance=ExtResource("4_00orw")]
+position = Vector2(226, 0)
