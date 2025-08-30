@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://bsmbglig6o671"]
+
+[ext_resource type="PackedScene" uid="uid://8mj5u2vt8k1" path="res://instances/player.tscn" id="1_uwrxv"]
+[ext_resource type="Shader" uid="uid://bmy4wqs8lhcrk" path="res://shaders/wall.gdshader" id="2_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://cfik6wbcbsjkj" path="res://icon.svg" id="3_lbhrr"]
+[ext_resource type="Script" uid="uid://cp02y0kvu4n8g" path="res://scripts/shaders/wall_warp_control.gd" id="4_lbhrr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(127, 128)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lnu2h"]
+noise_type = 0
+frequency = 0.0041
+offset = Vector3(0, 0, 88972.3)
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lbhrr"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_lnu2h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnu2h"]
+shader = ExtResource("2_lnu2h")
+shader_parameter/boarder_size = 0.9
+shader_parameter/warp_intensity = 0.2
+shader_parameter/sprite_scale = Vector2(4, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
+size = Vector2(298, 60)
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(0, 140)
+
+[node name="Obstacle" type="AnimatableBody2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Obstacle"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle/Area2D"]
+position = Vector2(605.5, 0)
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle/Area2D/CollisionShape2D"]
+material = SubResource("ShaderMaterial_lnu2h")
+scale = Vector2(4, 1)
+texture = ExtResource("3_lbhrr")
+script = ExtResource("4_lbhrr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacle/Area2D"]
+position = Vector2(-605.5, 0)
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacle/Area2D"]
+position = Vector2(-55, 0)
+shape = SubResource("RectangleShape2D_u5sy4")

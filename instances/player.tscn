@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://8mj5u2vt8k1"]
+
+[ext_resource type="Texture2D" uid="uid://cfik6wbcbsjkj" path="res://icon.svg" id="1_5lg5i"]
+[ext_resource type="Script" uid="uid://3w7iu7jsbck5" path="res://scripts/statemachine/state_machine.gd" id="2_nd4ad"]
+[ext_resource type="Script" uid="uid://bstc3obgj7jbh" path="res://scripts/player/movement_state.gd" id="3_fljvy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
+size = Vector2(24, 24)
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_5lg5i")
+
+[node name="Ship" type="CharacterBody2D" parent="."]
+top_level = true
+
+[node name="Area2D" type="Area2D" parent="Ship"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ship/Area2D"]
+shape = SubResource("RectangleShape2D_uwrxv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ship"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_5lg5i")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("2_nd4ad")
+current_state = NodePath("Movement")
+
+[node name="Movement" type="Node" parent="StateMachine" node_paths=PackedStringArray("body", "ship")]
+script = ExtResource("3_fljvy")
+body = NodePath("../..")
+ship = NodePath("../../Ship")
