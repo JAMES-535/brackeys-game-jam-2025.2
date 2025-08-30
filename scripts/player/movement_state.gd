@@ -36,11 +36,11 @@ func _state_physics_process(delta: float) -> void:
 	body.position.x = clampf(body.position.x, -BOUNDS, BOUNDS)
 	
 	#var dir = ship.global_position.direction_to(body.global_position).normalized()
-	ship.global_position = ship.global_position.lerp(body.global_position, FOLLOW_SPEED * delta)
+	ship.global_position = ship.global_position.lerp(body.global_position, 1 - exp(-FOLLOW_SPEED * delta))
 	if BOUNDS - abs(body.global_position.x) <= 0.01:
-		ship.rotation_degrees = lerp(ship.rotation_degrees, 0.0, delta * ROTATION_SPEED)
+		ship.rotation_degrees = lerp(ship.rotation_degrees, 0.0, 1 - exp(delta * -ROTATION_SPEED))
 	else:
-		ship.rotation_degrees = lerp(ship.rotation_degrees, input * MAX_ROTATION, delta * ROTATION_SPEED)
+		ship.rotation_degrees = lerp(ship.rotation_degrees, input * MAX_ROTATION, 1 - exp(delta * -ROTATION_SPEED))
 
 func _on_area_enter(body: Node2D) -> void:
 	if body is Obstacle or body is CannonBeam:

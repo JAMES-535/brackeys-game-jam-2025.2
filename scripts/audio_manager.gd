@@ -12,8 +12,8 @@ func _ready() -> void:
 	
 
 func _process(delta: float) -> void:
-	pitch_scale = move_toward(pitch_scale, t_pitch_scale, delta * 2.0)
-	low_pass_filter.cutoff_hz = move_toward(low_pass_filter.cutoff_hz, t_low_pass, delta * 2.0)
+	pitch_scale = move_toward(pitch_scale, t_pitch_scale, 1 - exp(delta * -2.0))
+	low_pass_filter.cutoff_hz = move_toward(low_pass_filter.cutoff_hz, t_low_pass, 1 - exp(delta * -2.0))
 
 
 func _on_set_slow(is_slow: bool) -> void:

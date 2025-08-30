@@ -14,10 +14,10 @@ func _ready() -> void:
 	EventBus.gameplay.player_damaged.connect(_on_player_damaged)
 
 func _process(delta: float) -> void:
-	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), delta * zoom_speed)
-	global_position = global_position.lerp(target_position, delta * zoom_speed)
+	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), 1 - exp(delta * -zoom_speed))
+	global_position = global_position.lerp(target_position, 1 - exp(delta * -zoom_speed))
 	offset = Vector2(randf_range(-cam_shake, cam_shake), randf_range(-cam_shake, cam_shake))
-	cam_shake = move_toward(cam_shake, 0, delta * 5.0)
+	cam_shake = move_toward(cam_shake, 0, 1 - exp(delta * -5.0))
 
 func _on_set_slow(is_slow: bool) -> void:
 	if is_slow:

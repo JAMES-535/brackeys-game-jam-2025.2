@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://kyhxfqe0ybjh"]
+[gd_scene load_steps=12 format=3 uid="uid://kyhxfqe0ybjh"]
 
 [ext_resource type="Texture2D" uid="uid://bm6t206yx6rb7" path="res://sprites/cannon.png" id="1_07t1o"]
 [ext_resource type="Script" uid="uid://ianyuawhxcd1" path="res://scripts/gameplay/cannon_control.gd" id="1_52lu4"]
 [ext_resource type="Texture2D" uid="uid://dutcx471jw5wy" path="res://sprites/blast.png" id="2_w2bc8"]
 [ext_resource type="Script" uid="uid://boxn3mbghg7ck" path="res://scripts/gameplay/cannon_beam.gd" id="3_w2bc8"]
+[ext_resource type="AudioStream" uid="uid://cxrj2yw45ag0a" path="res://audio/sfx/cannon-powerup.wav" id="5_wxsns"]
+[ext_resource type="AudioStream" uid="uid://cdd4qhuw2ej81" path="res://audio/sfx/cannon-shoot.wav" id="6_th42t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52lu4"]
 size = Vector2(10, 360)
@@ -88,6 +90,25 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BlastSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.415992,
+"start_offset": 0.0,
+"stream": ExtResource("5_wxsns")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_th42t")
+}],
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_th42t"]
 _data = {
@@ -143,3 +164,6 @@ emitting = false
 amount = 16
 lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_g5sld")
+
+[node name="BlastSound" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0

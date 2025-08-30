@@ -22,7 +22,7 @@ func _ready() -> void:
 		EventBus.gameplay.show_tutorial.emit.call_deferred()
 	
 func _process(delta: float) -> void:
-	Engine.time_scale = lerp(Engine.time_scale, target_time_scale, delta * time_shift_speed)
+	Engine.time_scale = lerp(Engine.time_scale, target_time_scale, 1 - exp(delta * -time_shift_speed))
 	
 func _on_game_start() -> void:
 	score_timer.start(score_frequency)

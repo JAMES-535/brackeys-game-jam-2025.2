@@ -42,7 +42,7 @@ alignment = 1
 [node name="Title" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_vjb58")
-text = "Space Squeeze"
+text = "Twin Ship"
 horizontal_alignment = 1
 vertical_alignment = 1
 
