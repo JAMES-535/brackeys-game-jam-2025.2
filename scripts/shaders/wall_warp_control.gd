@@ -11,3 +11,4 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_elapsed_time += delta * _warp_speed
 	material.get("shader_parameter/noise").get("noise").set("offset", Vector3(0.0, 0.0, _elapsed_time))
+	material.set("shader_parameter/sprite_scale", scale)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://8mj5u2vt8k1"]
+[gd_scene load_steps=9 format=3 uid="uid://8mj5u2vt8k1"]
 
 [ext_resource type="Texture2D" uid="uid://cfik6wbcbsjkj" path="res://icon.svg" id="1_5lg5i"]
 [ext_resource type="Texture2D" uid="uid://d1nkjh5lp4036" path="res://sprites/ship.png" id="2_5a4mc"]
 [ext_resource type="Script" uid="uid://3w7iu7jsbck5" path="res://scripts/statemachine/state_machine.gd" id="2_nd4ad"]
 [ext_resource type="Script" uid="uid://bstc3obgj7jbh" path="res://scripts/player/movement_state.gd" id="3_fljvy"]
 [ext_resource type="Script" uid="uid://d1p0wivevfi71" path="res://scripts/player/death_state.gd" id="4_xkcoe"]
+[ext_resource type="AudioStream" uid="uid://cbrjepf62qlmm" path="res://audio/sfx/hitHurt.wav" id="6_kipg0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
 size = Vector2(16, 24)
@@ -48,6 +49,7 @@ process_material = SubResource("ParticleProcessMaterial_5a4mc")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Ship"]
 position = Vector2(10, 0)
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_5a4mc")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
@@ -65,3 +67,6 @@ script = ExtResource("4_xkcoe")
 ship = NodePath("../../Ship")
 particles1 = NodePath("../../Ship/GPUParticles2D")
 particles2 = NodePath("../../Ship/GPUParticles2D2")
+
+[node name="DeathAudio" type="AudioStreamPlayer" parent="StateMachine/Death"]
+stream = ExtResource("6_kipg0")

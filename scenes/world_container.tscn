@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc0elc4ixjj8t"]
+[gd_scene load_steps=3 format=3 uid="uid://cc0elc4ixjj8t"]
 
-[ext_resource type="PackedScene" uid="uid://bsmbglig6o671" path="res://scenes/game.tscn" id="1_w33sa"]
+[ext_resource type="PackedScene" uid="uid://dwncfkielcgg2" path="res://instances/autoloads/transition_manager.tscn" id="1_5n7ks"]
+[ext_resource type="PackedScene" uid="uid://bl4qhdqe3slwr" path="res://scenes/menu.tscn" id="2_5n7ks"]
 
 [node name="WorldContainer" type="Node"]
 
-[node name="2DWorld" type="Node2D" parent="."]
+[node name="TransitionManager" parent="." node_paths=PackedStringArray("world_2d", "current_scene") instance=ExtResource("1_5n7ks")]
+world_2d = NodePath("../2DWorld")
+current_scene = NodePath("../2DWorld/Menu")
 
-[node name="Game" parent="2DWorld" instance=ExtResource("1_w33sa")]
+[node name="2DWorld" type="Node2D" parent="."]
+texture_filter = 1
+
+[node name="Menu" parent="2DWorld" instance=ExtResource("2_5n7ks")]
+texture_filter = 1

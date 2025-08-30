@@ -1,15 +1,71 @@
-[gd_scene load_steps=7 format=3 uid="uid://desu1q3kqinqk"]
+[gd_scene load_steps=20 format=3 uid="uid://desu1q3kqinqk"]
 
 [ext_resource type="Script" uid="uid://bmhjs1r2fwg8l" path="res://scripts/gameplay/obstacle_control.gd" id="1_r5had"]
 [ext_resource type="Script" uid="uid://b6f3n8ei8b12b" path="res://scripts/gameplay/obstacle.gd" id="2_00orw"]
 [ext_resource type="PackedScene" uid="uid://b5pfm24qtol1s" path="res://instances/wall_sprite.tscn" id="2_s0k0g"]
 [ext_resource type="PackedScene" uid="uid://65n45feouiqu" path="res://instances/slow_zone.tscn" id="4_00orw"]
+[ext_resource type="Shader" uid="uid://bmy4wqs8lhcrk" path="res://shaders/wall.gdshader" id="4_kthwe"]
+[ext_resource type="PackedScene" uid="uid://dv26fys13i0p8" path="res://instances/bonus.tscn" id="5_8o5f7"]
+[ext_resource type="Texture2D" uid="uid://cniqggvm6nexv" path="res://sprites/walls/wall_whole.png" id="5_honfk"]
+[ext_resource type="Texture2D" uid="uid://dgf38xfkeeoss" path="res://sprites/walls/wall_small.png" id="6_ollvk"]
+[ext_resource type="PackedScene" uid="uid://kyhxfqe0ybjh" path="res://instances/cannon.tscn" id="9_ollvk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(510, 58)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lnu2h"]
+noise_type = 0
+frequency = 0.0041
+offset = Vector3(0, 0, 1096.68)
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lbhrr"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_lnu2h")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_l26sw"]
+viewport_path = NodePath("StarParticles/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_honfk"]
+resource_local_to_scene = true
+shader = ExtResource("4_kthwe")
+shader_parameter/boarder_size = 0.95
+shader_parameter/warp_intensity = 0.1
+shader_parameter/sprite_scale = Vector2(4, 0.453)
+shader_parameter/wall_tex = ExtResource("5_honfk")
+shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
+shader_parameter/stars = SubResource("ViewportTexture_l26sw")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ollvk"]
+viewport_path = NodePath("StarParticles/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kg3gu"]
+resource_local_to_scene = true
+shader = ExtResource("4_kthwe")
+shader_parameter/boarder_size = 0.95
+shader_parameter/warp_intensity = 0.1
+shader_parameter/sprite_scale = Vector2(4, 0.453)
+shader_parameter/wall_tex = ExtResource("5_honfk")
+shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
+shader_parameter/stars = SubResource("ViewportTexture_ollvk")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
 size = Vector2(376, 58)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xaj3b"]
+viewport_path = NodePath("StarParticles/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kn0cn"]
+resource_local_to_scene = true
+shader = ExtResource("4_kthwe")
+shader_parameter/boarder_size = 0.95
+shader_parameter/warp_intensity = 0.1
+shader_parameter/sprite_scale = Vector2(2.94, 0.453)
+shader_parameter/wall_tex = ExtResource("6_ollvk")
+shader_parameter/noise = SubResource("NoiseTexture2D_lbhrr")
+shader_parameter/stars = SubResource("ViewportTexture_xaj3b")
 
 [node name="Obstacle" type="AnimatableBody2D"]
 sync_to_physics = false
@@ -23,19 +79,30 @@ position = Vector2(498, 0)
 shape = SubResource("RectangleShape2D_p57ef")
 
 [node name="WallSprite" parent="Area2D/CollisionShape2D" instance=ExtResource("2_s0k0g")]
+material = SubResource("ShaderMaterial_honfk")
+scale = Vector2(4, 0.453)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-498, 0)
 shape = SubResource("RectangleShape2D_p57ef")
 
 [node name="WallSprite" parent="Area2D/CollisionShape2D2" instance=ExtResource("2_s0k0g")]
+material = SubResource("ShaderMaterial_kg3gu")
+scale = Vector2(4, 0.453)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(21, 0)
 shape = SubResource("RectangleShape2D_u5sy4")
 
 [node name="WallSprite" parent="Area2D/CollisionShape2D3" instance=ExtResource("2_s0k0g")]
+material = SubResource("ShaderMaterial_kn0cn")
 scale = Vector2(2.94, 0.453)
 
 [node name="SlowZone" parent="." instance=ExtResource("4_00orw")]
 position = Vector2(226, 0)
+
+[node name="Bonus" parent="." instance=ExtResource("5_8o5f7")]
+position = Vector2(226, 0)
+
+[node name="Cannon" parent="." instance=ExtResource("9_ollvk")]
+position = Vector2(0, 45)

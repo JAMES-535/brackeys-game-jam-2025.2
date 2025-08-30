@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 EventBus="*res://instances/autoloads/event_bus.tscn"
+AudioManager="*res://instances/autoloads/audio_manager.tscn"
+SaveManager="*res://instances/autoloads/save_manager.tscn"
 
 [display]
 

@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwncfkielcgg2"]
+
+[ext_resource type="Script" uid="uid://dww1hlejl16lm" path="res://scripts/transition_manager.gd" id="1_0j0au"]
+[ext_resource type="Shader" uid="uid://m2gegfebmlld" path="res://shaders/transition_cover.gdshader" id="2_2hfru"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j88hy"]
+shader = ExtResource("2_2hfru")
+shader_parameter/t = 0.0
+
+[sub_resource type="Animation" id="Animation_2hfru"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/t")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_j88hy"]
+resource_name = "close"
+length = 0.833337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/t")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.833333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_change_scene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0j0au"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/t")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_umtpt"]
+_data = {
+&"RESET": SubResource("Animation_2hfru"),
+&"close": SubResource("Animation_j88hy"),
+&"open": SubResource("Animation_0j0au")
+}
+
+[node name="TransitionManager" type="CanvasLayer"]
+layer = 99
+script = ExtResource("1_0j0au")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_j88hy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_umtpt")
+}

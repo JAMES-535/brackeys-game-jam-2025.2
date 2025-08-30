@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsmbglig6o671"]
+[gd_scene load_steps=16 format=3 uid="uid://bsmbglig6o671"]
 
 [ext_resource type="Script" uid="uid://ca0dd4xq5sdy0" path="res://scripts/game_manager.gd" id="1_gee14"]
 [ext_resource type="Theme" uid="uid://cfgff5ieyt4pf" path="res://theming/main_theme.tres" id="1_u5sy4"]
@@ -8,10 +8,51 @@
 [ext_resource type="PackedScene" uid="uid://c17fvd7lpyi6s" path="res://instances/obstacles/obstacle.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dac6e2j6pu041" path="res://instances/obstacles/obstacle2.tscn" id="2_p57ef"]
 [ext_resource type="PackedScene" uid="uid://desu1q3kqinqk" path="res://instances/obstacles/obstacle3.tscn" id="3_u5sy4"]
+[ext_resource type="Script" uid="uid://cdlfskxbbe1vt" path="res://scripts/gameplay/tutorial_text.gd" id="4_dinhu"]
 [ext_resource type="PackedScene" uid="uid://c7hg7xg2odneg" path="res://instances/obstacles/obstacle4.tscn" id="4_gee14"]
-[ext_resource type="Script" uid="uid://shnlgacuuj32" path="res://scripts/gameplay/camera_conrol.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://shnlgacuuj32" path="res://scripts/gameplay/camera_control.gd" id="9_vtaks"]
+[ext_resource type="PackedScene" uid="uid://b6qf637mhq6lq" path="res://instances/star_particles.tscn" id="11_kvpfn"]
+
+[sub_resource type="Animation" id="Animation_dinhu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kvpfn"]
+resource_name = "pulse"
+length = 3.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvuet"]
+_data = {
+&"RESET": SubResource("Animation_dinhu"),
+&"pulse": SubResource("Animation_kvpfn")
+}
 
 [node name="Game" type="Node2D"]
+texture_filter = 1
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_gee14")
@@ -35,6 +76,31 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TutorialText" type="Label" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -23.0
+offset_right = 103.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_u5sy4")
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 16
+text = "A/D or arrow keys to move"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_dinhu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/TutorialText"]
+libraries = {
+&"": SubResource("AnimationLibrary_kvuet")
+}
+autoplay = "RESET"
+
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("1_yqjtg")
 obstacle = Array[PackedScene]([ExtResource("2_p57ef"), ExtResource("3_u5sy4"), ExtResource("4_gee14"), ExtResource("2_lnu2h")])
@@ -47,3 +113,5 @@ ship = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 position = Vector2(0, 140)
+
+[node name="StarParticles" parent="." instance=ExtResource("11_kvpfn")]

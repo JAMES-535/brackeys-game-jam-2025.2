@@ -43,9 +43,10 @@ func _state_physics_process(delta: float) -> void:
 		ship.rotation_degrees = lerp(ship.rotation_degrees, input * MAX_ROTATION, delta * ROTATION_SPEED)
 
 func _on_area_enter(body: Node2D) -> void:
-	if body is Obstacle:
+	if body is Obstacle or body is CannonBeam:
 		EventBus.gameplay.game_over.emit()
 	elif body is Bonus:
+		body.disable()
 		EventBus.gameplay.add_score.emit(body.amt)
 	elif body is SlowZone:
 		EventBus.gameplay.set_slow.emit(true)
