@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cb6ybw57eg8du"]
 
 [ext_resource type="Script" uid="uid://dw1yt8cl4iw18" path="res://scripts/audio_manager.gd" id="1_6hkqo"]
-[ext_resource type="AudioStream" uid="uid://c82y58rd4e7cl" path="res://audio/music/Retro Action Loop #2.wav" id="1_npdat"]
+[ext_resource type="AudioStream" uid="uid://dk1e8ocvp2y6a" path="res://audio/music/Risk no vocals.mp3" id="1_npdat"]
 
 [node name="AudioManager" type="AudioStreamPlayer"]
 stream = ExtResource("1_npdat")

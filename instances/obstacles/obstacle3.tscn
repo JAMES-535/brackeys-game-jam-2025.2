@@ -13,7 +13,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(510, 58)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_l26sw"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ollvk"]
 viewport_path = NodePath("StarParticles/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_honfk"]
@@ -23,9 +23,9 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(4, 0.453)
 shader_parameter/wall_tex = ExtResource("5_honfk")
-shader_parameter/stars = SubResource("ViewportTexture_l26sw")
+shader_parameter/stars = SubResource("ViewportTexture_ollvk")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ollvk"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_kg3gu"]
 viewport_path = NodePath("StarParticles/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kg3gu"]
@@ -35,7 +35,7 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(4, 0.453)
 shader_parameter/wall_tex = ExtResource("5_honfk")
-shader_parameter/stars = SubResource("ViewportTexture_ollvk")
+shader_parameter/stars = SubResource("ViewportTexture_kg3gu")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
 size = Vector2(376, 58)

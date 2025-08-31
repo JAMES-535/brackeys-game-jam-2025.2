@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(510, 58)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_dte70"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_186da"]
 viewport_path = NodePath("StarParticles/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e4ul2"]
@@ -21,12 +21,12 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(4, 0.453)
 shader_parameter/wall_tex = ExtResource("5_e4ul2")
-shader_parameter/stars = SubResource("ViewportTexture_dte70")
+shader_parameter/stars = SubResource("ViewportTexture_186da")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_puiah"]
 size = Vector2(996, 58)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_186da"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ha5x1"]
 viewport_path = NodePath("StarParticles/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ha5x1"]
@@ -36,7 +36,7 @@ shader_parameter/boarder_size = 0.95
 shader_parameter/warp_intensity = 0.1
 shader_parameter/sprite_scale = Vector2(7.785, 0.453)
 shader_parameter/wall_tex = ExtResource("6_186da")
-shader_parameter/stars = SubResource("ViewportTexture_186da")
+shader_parameter/stars = SubResource("ViewportTexture_ha5x1")
 
 [node name="Obstacle" type="AnimatableBody2D"]
 sync_to_physics = false
